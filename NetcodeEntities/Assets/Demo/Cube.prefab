@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 1979559759773921000}
   - component: {fileID: 1734767387441046038}
   - component: {fileID: 7678680427537621564}
-  - component: {fileID: -7306313358543616898}
-  - component: {fileID: 5066783032665264612}
   - component: {fileID: 9006000270318820966}
+  - component: {fileID: 610368042794960039}
+  - component: {fileID: 477803120207621465}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c426ba5b25ced4ec3b0415b455e43b25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-7306313358543616898
+--- !u!114 &9006000270318820966
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,10 +130,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8164018464177267953}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c16549610bfe4458aa9389201d072bb6, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f1c5ee8728524fe7babdc69d4d56481, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5066783032665264612
+--- !u!114 &610368042794960039
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -155,7 +155,7 @@ MonoBehaviour:
   TrackInterpolationDelay: 0
   GhostGroup: 0
   UsePreSerialization: 0
---- !u!114 &9006000270318820966
+--- !u!114 &477803120207621465
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,6 +164,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8164018464177267953}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f1c5ee8728524fe7babdc69d4d56481, type: 3}
+  m_Script: {fileID: 11500000, guid: c16549610bfe4458aa9389201d072bb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
