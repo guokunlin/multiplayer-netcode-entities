@@ -1,0 +1,156 @@
+using AOT;
+using System;
+using System.Runtime.CompilerServices;
+using Unity.Burst;
+using Unity.Collections;
+using Unity.Entities;
+using Unity.Jobs.LowLevel.Unsafe;
+using Unity.Mathematics;
+
+[CompilerGenerated]
+public class Run_WithImmediatePlayback : SystemBase
+{
+	[NoAlias]
+	[BurstCompile(FloatMode = FloatMode.Default, FloatPrecision = FloatPrecision.Standard, CompileSynchronously = false)]
+	private struct Run_WithImmediatePlayback_LambdaJob_0_Job : IJobEntityBatch
+	{
+		internal static InternalCompilerInterface.JobEntityBatchRunWithoutJobSystemDelegate FunctionPtrFieldNoBurst;
+
+		internal static InternalCompilerInterface.JobEntityBatchRunWithoutJobSystemDelegate FunctionPtrFieldBurst;
+
+		public Unity.Mathematics.Random random;
+
+		[ReadOnly]
+		public EntityTypeHandle __entityTypeHandle;
+
+		public EntityCommandBuffer __entityCommandBuffer;
+
+		[ReadOnly]
+		public ComponentTypeHandle<WidgetSpawner> __spawnerTypeHandle;
+
+		[ReadOnly]
+		public ComponentTypeHandle<Translation> __translationTypeHandle;
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		private void OriginalLambdaBody(Entity entity, [NoAlias] in WidgetSpawner spawner, [NoAlias] in Translation translation)
+		{
+			Entity e = __entityCommandBuffer.Instantiate(spawner.WidgetPrefabEntity);
+			__entityCommandBuffer.AddComponent(e, new Health
+			{
+				Score = random.NextFloat()
+			});
+			__entityCommandBuffer.SetComponent(e, new Translation
+			{
+				Value = translation.Value - random.NextFloat3()
+			});
+			__entityCommandBuffer.RemoveComponent<Health>(e);
+			__entityCommandBuffer.DestroyEntity(e);
+		}
+
+		public void Execute(ArchetypeChunk chunk, int batchIndex)
+		{
+			IntPtr nativeArrayPtr = InternalCompilerInterface.UnsafeGetChunkEntityArrayIntPtr(chunk, __entityTypeHandle);
+			IntPtr nativeArrayPtr2 = InternalCompilerInterface.UnsafeGetChunkNativeArrayReadOnlyIntPtr(chunk, __spawnerTypeHandle);
+			IntPtr nativeArrayPtr3 = InternalCompilerInterface.UnsafeGetChunkNativeArrayReadOnlyIntPtr(chunk, __translationTypeHandle);
+			int count = chunk.Count;
+			for (int i = 0; i != count; i++)
+			{
+				OriginalLambdaBody(InternalCompilerInterface.UnsafeGetCopyOfNativeArrayPtrElement<Entity>(nativeArrayPtr, i), in InternalCompilerInterface.UnsafeGetRefToNativeArrayPtrElement<WidgetSpawner>(nativeArrayPtr2, i), in InternalCompilerInterface.UnsafeGetRefToNativeArrayPtrElement<Translation>(nativeArrayPtr3, i));
+			}
+		}
+
+		[BurstCompile(FloatMode = FloatMode.Default, FloatPrecision = FloatPrecision.Standard, CompileSynchronously = false)]
+		[MonoPInvokeCallback(typeof(InternalCompilerInterface.JobEntityBatchRunWithoutJobSystemDelegate))]
+		public static void RunWithoutJobSystem(ref EntityQuery query, IntPtr jobPtr)
+		{
+			try
+			{
+				JobEntityBatchExtensions.RunWithoutJobsInternal(ref InternalCompilerInterface.UnsafeAsRef<Run_WithImmediatePlayback_LambdaJob_0_Job>(jobPtr), ref query);
+			}
+			finally
+			{
+			}
+		}
+	}
+
+	private EntityQuery Run_WithImmediatePlayback_LambdaJob_0_Query;
+
+	private ComponentTypeHandle<WidgetSpawner> __WidgetSpawner_RO_ComponentTypeHandle;
+
+	private ComponentTypeHandle<Translation> __Translation_RO_ComponentTypeHandle;
+
+	protected override void OnUpdate()
+	{
+		Unity.Mathematics.Random random = default(Unity.Mathematics.Random);
+		LambdaJobDescriptionExecutionMethods.Run(base.Entities.WithImmediatePlayback().ForEach(delegate(Entity entity, EntityCommandBuffer buffer, in WidgetSpawner spawner, in Translation translation)
+		{
+			Entity e = buffer.Instantiate(spawner.WidgetPrefabEntity);
+			buffer.AddComponent(e, new Health
+			{
+				Score = random.NextFloat()
+			});
+			buffer.SetComponent(e, new Translation
+			{
+				Value = translation.Value - random.NextFloat3()
+			});
+			buffer.RemoveComponent<Health>(e);
+			buffer.DestroyEntity(e);
+		}));
+	}
+
+	[DOTSCompilerPatchedMethod("OnUpdate")]
+	protected void __OnUpdate_59CB3FB1()
+	{
+		Unity.Mathematics.Random random = default(Unity.Mathematics.Random);
+		Run_WithImmediatePlayback_LambdaJob_0_Execute(ref random);
+	}
+
+	private void Run_WithImmediatePlayback_LambdaJob_0_Execute(ref Unity.Mathematics.Random random)
+	{
+		__WidgetSpawner_RO_ComponentTypeHandle.Update(ref base.CheckedStateRef);
+		__Translation_RO_ComponentTypeHandle.Update(ref base.CheckedStateRef);
+		EntityCommandBuffer _entityCommandBuffer = new EntityCommandBuffer(base.World.UpdateAllocator.ToAllocator);
+		Run_WithImmediatePlayback_LambdaJob_0_Job run_WithImmediatePlayback_LambdaJob_0_Job = default(Run_WithImmediatePlayback_LambdaJob_0_Job);
+		run_WithImmediatePlayback_LambdaJob_0_Job.random = random;
+		run_WithImmediatePlayback_LambdaJob_0_Job.__entityTypeHandle = GetEntityTypeHandle();
+		run_WithImmediatePlayback_LambdaJob_0_Job.__entityCommandBuffer = _entityCommandBuffer;
+		run_WithImmediatePlayback_LambdaJob_0_Job.__spawnerTypeHandle = __WidgetSpawner_RO_ComponentTypeHandle;
+		run_WithImmediatePlayback_LambdaJob_0_Job.__translationTypeHandle = __Translation_RO_ComponentTypeHandle;
+		Run_WithImmediatePlayback_LambdaJob_0_Job jobData = run_WithImmediatePlayback_LambdaJob_0_Job;
+		CompleteDependency();
+		InternalCompilerInterface.JobEntityBatchRunWithoutJobSystemDelegate functionPointer = JobsUtility.JobCompilerEnabled ? Run_WithImmediatePlayback_LambdaJob_0_Job.FunctionPtrFieldBurst : Run_WithImmediatePlayback_LambdaJob_0_Job.FunctionPtrFieldNoBurst;
+		InternalCompilerInterface.UnsafeRunJobEntityBatch(ref jobData, Run_WithImmediatePlayback_LambdaJob_0_Query, functionPointer);
+		_entityCommandBuffer.Playback(base.EntityManager);
+		_entityCommandBuffer.Dispose();
+		random = jobData.random;
+	}
+
+	protected override void OnCreateForCompiler()
+	{
+		base.OnCreateForCompiler();
+		Run_WithImmediatePlayback_LambdaJob_0_Query = GetEntityQuery(new EntityQueryDesc
+		{
+			All = new ComponentType[2]
+			{
+				ComponentType.ReadOnly<WidgetSpawner>(),
+				ComponentType.ReadOnly<Translation>()
+			},
+			Any = new ComponentType[0],
+			None = new ComponentType[0],
+			Options = EntityQueryOptions.Default
+		});
+		__WidgetSpawner_RO_ComponentTypeHandle = GetComponentTypeHandle<WidgetSpawner>(isReadOnly: true);
+		__Translation_RO_ComponentTypeHandle = GetComponentTypeHandle<Translation>(isReadOnly: true);
+		Run_WithImmediatePlayback_LambdaJob_0_Job.FunctionPtrFieldNoBurst = delegate(ref EntityQuery query, IntPtr jobPtr)
+		{
+			try
+			{
+				JobEntityBatchExtensions.RunWithoutJobsInternal(ref InternalCompilerInterface.UnsafeAsRef<Run_WithImmediatePlayback_LambdaJob_0_Job>(jobPtr), ref query);
+			}
+			finally
+			{
+			}
+		};
+		Run_WithImmediatePlayback_LambdaJob_0_Job.FunctionPtrFieldBurst = InternalCompilerInterface.BurstCompile(Run_WithImmediatePlayback_LambdaJob_0_Job.FunctionPtrFieldNoBurst);
+	}
+}
